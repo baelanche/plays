@@ -1,0 +1,84 @@
+.buttonicon {
+    width: 130px;
+    height: 130px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 20px 0px rgba(0,0,0,.1),
+    4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+    margin: 5px;
+    border: 0px;
+}
+.buttonicon:before,
+.buttonicon:after {
+    position: absolute;
+    content: "";
+    right: 0;
+    top: 0;
+    background: rgba(2,126,251,1);
+    transition: all 0.3s ease;
+}
+.buttonicon:before {
+    height: 0%;
+    width: 2px;
+}
+.buttonicon:after {
+    width: 0%;
+    height: 2px;
+}
+.buttonicon:hover{
+    /*background: transparent;*/
+    box-shadow: none;
+}
+.buttonicon:hover:before {
+    height: 100%;
+}
+.buttonicon:hover:after {
+    width: 100%;
+}
+.buttonicon span {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+.buttonicon span:hover{
+    color: rgba(2,126,251,1);
+}
+.buttonicon span:before,
+.buttonicon span:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: 0;
+    background: rgba(2,126,251,1);
+    transition: all 0.3s ease;
+}
+.buttonicon span:before {
+    width: 2px;
+    height: 0%;
+}
+.buttonicon span:after {
+    width: 0%;
+    height: 2px;
+}
+.buttonicon span:hover:before {
+    height: 100%;
+}
+.buttonicon span:hover:after {
+    width: 100%;
+}
+ 
+.sudoku {
+    background-image: url('../assets/images/sudoku.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
