@@ -1,5 +1,54 @@
 .difficulty {
     color: black;
-    height : 40px;
+    width: 150px;
+    height: 40px;
     line-height: 20px;
+}
+
+.sudoku-container {
+    margin-top: 50px;
+    background-color: rgb(59, 49, 64);
+}
+
+.sudoku-wrap div:nth-child(-n+8) {
+    margin: 3px 0px 0px 3px;
+}
+
+.sudoku-wrap div:last-child {
+    margin: 3px 3px 0px 3px;
+}
+
+.sudoku-container div .sudoku-wrap:last-child {
+    margin: 0px 0px 3px 0px;
+}
+
+.sudoku-container div .sudoku-wrap:nth-child(-n+3) .sudoku-grid:nth-child(-n+3),
+.sudoku-container div .sudoku-wrap:nth-child(-n+3) .sudoku-grid:nth-child(n+7),
+.sudoku-container div .sudoku-wrap:nth-child(n+4):nth-child(-n+6) .sudoku-grid:nth-child(n+4):nth-child(-n+6),
+.sudoku-container div .sudoku-wrap:nth-child(n+7) .sudoku-grid:nth-child(-n+3),
+.sudoku-container div .sudoku-wrap:nth-child(n+7) .sudoku-grid:nth-child(n+7) {
+    background-color: rgb(255, 255, 255);
+}
+
+.sudoku-container div .sudoku-wrap:nth-child(-n+3) .sudoku-grid:nth-child(-n+3):hover,
+.sudoku-container div .sudoku-wrap:nth-child(-n+3) .sudoku-grid:nth-child(n+7):hover,
+.sudoku-container div .sudoku-wrap:nth-child(n+4):nth-child(-n+6) .sudoku-grid:nth-child(n+4):nth-child(-n+6):hover,
+.sudoku-container div .sudoku-wrap:nth-child(n+7) .sudoku-grid:nth-child(-n+3):hover,
+.sudoku-container div .sudoku-wrap:nth-child(n+7) .sudoku-grid:nth-child(n+7):hover {
+    background-color: rgb(255, 247, 237);
+    cursor: pointer;
+}
+
+.sudoku-grid {
+    background-color: rgb(255, 247, 237);
+    width: 100px;
+    height: 100px;
+    font-size: 40px;
+    text-align: center;
+    line-height: 100px;
+}
+
+.sudoku-grid:hover {
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
 }

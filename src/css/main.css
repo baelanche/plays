@@ -4,6 +4,10 @@
     font-family: 'Noto Sans KR';
 }
 
+.logo {
+    margin-bottom: 50px;
+}
+
 .buttonicon {
     width: 130px;
     height: 130px;
