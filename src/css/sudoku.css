@@ -52,3 +52,15 @@
     background-color: rgb(255, 255, 255);
     cursor: pointer;
 }
+
+.sudoku-grid .mutable {
+    color: rgb(63, 127, 255);
+}
+
+.sudoku-grid .mutable .clicked {
+    background-color: rgb(155, 147, 137);
+}
+
+.sudoku-grid .immutable {
+    color: rgb(0, 0, 0);
+}

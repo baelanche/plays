@@ -19,7 +19,9 @@ export class SudokuGameScreen extends Component {
             sudokuScreen += '<div class="d-flex sudoku-wrap">';
 
             for (let j = 0; j < 9; j++) {
-                sudokuScreen += `<div class="sudoku-grid">${sudoku[i * 9 + j] !== '.' ? sudoku[i * 9 + j] : ''}</div>`;
+                const number = sudoku[i * 9 + j];
+
+                sudokuScreen += `<div class="sudoku-grid ${number !== '.' ? 'immutable' : 'mutable'}">${number !== '.' ? number : ''}</div>`;
             }
 
             sudokuScreen += '</div>';
