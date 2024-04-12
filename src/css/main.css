@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&display=swap');
+
+* {
+    font-family: 'Noto Sans KR';
+}
+
 .buttonicon {
     width: 130px;
     height: 130px;
@@ -78,7 +84,7 @@
 }
  
 .sudoku {
-    background-image: url('../assets/images/sudoku.png');
+    background-image: url('../assets/sudoku.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
