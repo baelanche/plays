@@ -57,8 +57,8 @@
     color: rgb(63, 127, 255);
 }
 
-.sudoku-grid .mutable .clicked {
-    background-color: rgb(155, 147, 137);
+.clicked {
+    background-color: rgb(155, 147, 137) !important;
 }
 
 .sudoku-grid .immutable {

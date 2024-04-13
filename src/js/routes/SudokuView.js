@@ -13,7 +13,7 @@ export class SudokuView extends Component {
         return Sudoku.generate('easy');
     }
 
-    getCompleteBoard() {
+    getUserBoard() {
         const grids = document.getElementsByClassName('sudoku-grid');
         let board = '';
         [...grids].forEach((grid) => {
@@ -22,7 +22,7 @@ export class SudokuView extends Component {
         return board;
     }
 
-    render() {
+    renderTopButtons() {
         const buttons = document.createElement('div');
         buttons.className = 'd-flex justify-content-center';
         new SudokuDifficultyButton(buttons, { 'class': 'buttonicon difficulty' }, { 'text': '쉬움' });
@@ -31,8 +31,10 @@ export class SudokuView extends Component {
         new SudokuDifficultyButton(buttons, { 'class': 'buttonicon difficulty' }, { 'text': '짱어려움' });
         new SudokuDifficultyButton(buttons, { 'class': 'buttonicon difficulty' }, { 'text': '짱짱어려움' });
         new SudokuDifficultyButton(buttons, { 'class': 'buttonicon difficulty' }, { 'text': '짱짱짱어려움' });
-        this.$self.appendChild(buttons);
-        
+        return buttons;
+    }
+
+    renderSudokuScreen() {
         const sudoku = this.getInitBoard();
         const screen = document.createElement('div');
         const screenWrap = document.createElement('div');
@@ -45,22 +47,34 @@ export class SudokuView extends Component {
                 const number = sudoku[i * 9 + j];
                 const sudokuGrid = new SudokuGrid(sudokuWrap, { 'class': `sudoku-grid ${number !== '.' ? 'immutable' : 'mutable'}`}, { 'text': `${number !== '.' ? number : ''}`});
                 sudokuGrid.$self.addEventListener('click', () => {
-                    console.log(sudokuGrid.$self.innerHTML);
+                    if (sudokuGrid.$self.classList.contains('mutable')) {
+                        console.log(this);
+                        sudokuGrid.$self.classList.add('clicked');
+                    }
                 })
             }
             screenWrap.appendChild(sudokuWrap);
         }
         screen.appendChild(screenWrap);
-        this.$self.appendChild(screen);
-        
+        return screen;
+    }
+
+    renderValidateButton() {
         const footer = document.createElement('div');
         footer.className = 'd-flex justify-content-center sudoku-footer';
         const validateButton = new SudokuValidateButton(footer, { 'class': 'buttonicon validate' });
         validateButton.$self.addEventListener('click', () => {
-            const solveResult = Sudoku.solve(this.getCompleteBoard());
+            const solveResult = Sudoku.solve(this.getUserBoard());
             console.log(solveResult);
         })
+        return footer;
+    }
 
-        this.$self.appendChild(footer);
+    render() {
+        this.$self.appendChild(this.renderTopButtons());
+        
+        this.$self.appendChild(this.renderSudokuScreen());
+
+        this.$self.appendChild(this.renderValidateButton());
     }
 }
