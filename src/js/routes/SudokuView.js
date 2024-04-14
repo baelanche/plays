@@ -48,8 +48,20 @@ export class SudokuView extends Component {
                 const sudokuGrid = new SudokuGrid(sudokuWrap, { 'class': `sudoku-grid ${number !== '.' ? 'immutable' : 'mutable'}`}, { 'text': `${number !== '.' ? number : ''}`});
                 sudokuGrid.$self.addEventListener('click', () => {
                     if (sudokuGrid.$self.classList.contains('mutable')) {
-                        console.log(this);
-                        sudokuGrid.$self.classList.add('clicked');
+                        const allGrid = document.querySelectorAll('.sudoku-grid');
+                        if (sudokuGrid.$self.classList.contains('clicked')) {
+                            sudokuGrid.$self.classList.remove('clicked');
+                            allGrid.forEach((grid) => {
+                                grid.style.opacity = 1;
+                            })
+                        } else {
+                            sudokuGrid.$self.classList.add('clicked');
+                            allGrid.forEach((grid) => {
+                                if (!grid.classList.contains('clicked')) {
+                                    grid.style.opacity = 0.5;
+                                }
+                            })
+                        }
                     }
                 })
             }
