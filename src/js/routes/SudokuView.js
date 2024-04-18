@@ -10,7 +10,7 @@ export class SudokuView extends Component {
     }
 
     getInitBoard() {
-        return Sudoku.generate('easy');
+        return Sudoku.generate('inhuman');
     }
 
     getUserBoard() {
@@ -45,30 +45,62 @@ export class SudokuView extends Component {
 
             for (let j = 0; j < 9; j++) {
                 const number = sudoku[i * 9 + j];
-                const sudokuGrid = new SudokuGrid(sudokuWrap, { 'class': `sudoku-grid ${number !== '.' ? 'immutable' : 'mutable'}`}, { 'text': `${number !== '.' ? number : ''}`});
-                sudokuGrid.$self.addEventListener('click', () => {
-                    if (sudokuGrid.$self.classList.contains('mutable')) {
-                        const allGrid = document.querySelectorAll('.sudoku-grid');
-                        if (sudokuGrid.$self.classList.contains('clicked')) {
-                            sudokuGrid.$self.classList.remove('clicked');
-                            allGrid.forEach((grid) => {
-                                grid.style.opacity = 1;
-                            })
-                        } else {
-                            sudokuGrid.$self.classList.add('clicked');
-                            allGrid.forEach((grid) => {
-                                if (!grid.classList.contains('clicked')) {
-                                    grid.style.opacity = 0.5;
-                                }
-                            })
-                        }
-                    }
-                })
+                new SudokuGrid(sudokuWrap, { 'class': `sudoku-grid ${number !== '.' ? 'immutable' : 'mutable'}`}, { 'text': `${number !== '.' ? number : ''}`});
             }
             screenWrap.appendChild(sudokuWrap);
         }
+        screen.addEventListener('click', (e) => {
+            const target = e.target;
+            const clicked = document.querySelector('.clicked');
+            const allGrid = document.querySelectorAll('.sudoku-grid');
+            const notice = document.querySelector('.sudoku-notice');
+            if (clicked === null) {
+                if (target.classList.contains('mutable')) {
+                    target.classList.add('clicked');
+                    allGrid.forEach((grid) => {
+                        if (!grid.classList.contains('clicked')) {
+                            grid.style.opacity = 0.75;
+                        }
+                    })
+                    notice.style.visibility = 'visible';
+                }
+            } else {
+                clicked.classList.remove('clicked');
+                allGrid.forEach((grid) => {
+                    grid.style.opacity = 1;
+                })
+                notice.style.visibility = 'hidden';
+            }
+        })
+
+        window.addEventListener('keyup', (e) => {
+            const clicked = document.querySelector('.clicked');
+            const allGrid = document.querySelectorAll('.sudoku-grid');
+            const notice = document.querySelector('.sudoku-notice');
+            if ('1' <= e.key && e.key <= '9') {
+                if (clicked !== null) {
+                    clicked.innerHTML = e.key;
+                    clicked.classList.remove('clicked');
+                    allGrid.forEach((grid) => {
+                        grid.style.opacity = 1;
+                    })
+                    notice.style.visibility = 'hidden';
+                }
+            }
+        })
+
         screen.appendChild(screenWrap);
         return screen;
+    }
+
+    renderNoticeMessage() {
+        const section = document.createElement('div');
+        section.className = 'd-flex justify-content-center sudoku-notice';
+        const noticeMessage = document.createElement('h6');
+        noticeMessage.innerHTML = '1에서 9사이의 숫자를 입력해주세요';
+        section.style.visibility = 'hidden';
+        section.appendChild(noticeMessage);
+        return section;
     }
 
     renderValidateButton() {
@@ -76,16 +108,26 @@ export class SudokuView extends Component {
         footer.className = 'd-flex justify-content-center sudoku-footer';
         const validateButton = new SudokuValidateButton(footer, { 'class': 'buttonicon validate' });
         validateButton.$self.addEventListener('click', () => {
-            const solveResult = Sudoku.solve(this.getUserBoard());
-            console.log(solveResult);
+            const userBoard = this.getUserBoard();
+            const solvedBoard = Sudoku.solve(userBoard);
+            if (userBoard === solvedBoard) {
+                alert('클리어~~');
+                this.render();
+            } else {
+                alert('틀렸어요ㅠ');
+            }
         })
         return footer;
     }
 
     render() {
+        this.$self.innerHTML = '';
+
         this.$self.appendChild(this.renderTopButtons());
         
         this.$self.appendChild(this.renderSudokuScreen());
+
+        this.$self.appendChild(this.renderNoticeMessage());
 
         this.$self.appendChild(this.renderValidateButton());
     }

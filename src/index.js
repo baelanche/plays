@@ -7,8 +7,7 @@ import { SudokuView } from './js/routes/SudokuView';
 const initRouter = () => {
     Router.init(document.getElementById('root'), {
         '/': MainView,
-        '/sudoku': SudokuView,
-        //'/404': NotFoundView,
+        '/sudoku': SudokuView
     });
 }
 
